@@ -32,6 +32,7 @@ namespace Virtualization.Visualization
             }
 
             //InitializeMemory();
+            InitializeSyntaxHilighting();
 
             // load firmware from embedded resource
             var assembly = Assembly.GetExecutingAssembly();
@@ -42,6 +43,7 @@ namespace Virtualization.Visualization
             {
                 firmware = reader.ReadToEnd();
             }
+            syntaxDocument1.Lines = firmware.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
 
             if (firmware != string.Empty)
             {
@@ -56,6 +58,11 @@ namespace Virtualization.Visualization
             DisplayFlags();
             DisplayMemory();
             hexBox1.Select(processor.InstructionPointer, 1);
+        }
+
+        private void InitializeSyntaxHilighting()
+        {
+
         }
 
         private void InitializeMemory()
@@ -235,6 +242,11 @@ namespace Virtualization.Visualization
         {
             var byteProvider = new Be.Windows.Forms.DynamicByteProvider(processor.PhysicalMemory);
             hexBox1.ByteProvider = byteProvider;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
